@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+from collections import defaultdict
+
+# Use a hash (dictionary) to store word frequencies
+word_count = defaultdict(int)
+
+# Read the file and count word frequencies
+with open("hw2_data.txt", "r") as file:
+    for line in file:
+        word = line.strip()
+        word_count[word] += 1
+
+# Count of unique words
+unique_words = len(word_count)
+print(f"Total unique food items: {unique_words}")
+
+# Display frequency of each word
+print("Food item frequencies:")
+for word, count in word_count.items():
+    print(f"{word}: {count}")
+
+# Sort by frequency descending
+sorted_counts = sorted(word_count.items(), key=lambda item: item[1], reverse=True)
+
+# Separate words and counts for plotting
+words, counts = zip(*sorted_counts)
+
+# Plot the bar chart
+plt.figure(figsize=(12, 6))
+plt.bar(words, counts, color="skyblue")
+plt.xticks(rotation=90)
+plt.xlabel("Food Item")
+plt.ylabel("Count")
+plt.title("Frequency of Each Food Item")
+plt.tight_layout()
+plt.savefig("Figure_1.png")
+plt.show()
